@@ -21,6 +21,8 @@ public class ListaEnlazada {
 			
 		}
 	}
+	
+//Repasar el metodo de eliminar nodo de la lista!!!
 	public void eliminarNodoLista(int dato) {
 		if(primeroLista==null) {
 			System.out.println("No hay datos.");
