@@ -27,28 +27,42 @@ public class ListaDobleEnlazada {
 	}
 	
 	public void eliminarNodoDobble(int dato) {
-		if(primeroLista==null) {
-			System.out.println("No hay suficientes datos.");
-			return;
-		}
-		if (primeroLista.getValor()==dato) {
-			System.out.println("Dato extraido: "+ primeroLista.getValor());
-			
-		}
 		
-		else {
-			NodoDoble temp= primeroLista;
-			while(temp.getValor()!= dato &&  temp.getSiguienteDoble()!=null) {
-				temp=temp.getSiguienteDoble();
-			}
-			if (temp.getSiguienteDoble()==null) {
-				System.out.println("No se ha encontrado el dato.");
-			}
-			else {
-				System.out.println("Dato extraido: "+ temp.getValor());
-				
-			}
-		}
-		
+	    if (primeroLista == null) {
+	        System.out.println("No hay suficientes datos.");
+	        return;
+	    }
+
+	    NodoDoble temp = primeroLista;
+	    if (temp.getValor() == dato) {
+	        System.out.println("Dato extraído: " + temp.getValor());
+	        primeroLista = temp.getSiguienteDoble(); // Mover el puntero al siguiente nodo
+	        if (primeroLista != null) {
+	            primeroLista.setAnteriorDoble(null); // Si hay un nuevo primer nodo, quitar referencia al anterior
+	        }
+	        return;
+	    }
+	    
+	    while (temp != null && temp.getValor() != dato) {
+	        temp = temp.getSiguienteDoble();
+	    }
+
+	    // Si no se encontró el nodo
+	    if (temp == null) {
+	        System.out.println("No se ha encontrado el dato.");
+	        return;
+	    }
+	    System.out.println("Dato extraído: " + temp.getValor());
+	    NodoDoble anterior = temp.getAnteriorDoble();
+	    NodoDoble siguiente = temp.getSiguienteDoble();
+
+	    // Si el nodo a eliminar está en medio de la lista
+	    if (siguiente != null) {
+	        anterior.setSiguienteDoble(siguiente);
+	        siguiente.setAnteriorDoble(anterior);
+	    } else {
+	        // Si el nodo a eliminar es el último
+	        anterior.setSiguienteDoble(null);
+	    }
 	}
 }
